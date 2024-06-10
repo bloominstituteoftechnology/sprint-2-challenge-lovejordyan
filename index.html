@@ -6,32 +6,93 @@
   <script id="challenge">
     // 👉 CHALLENGE 1
     function profileActivation(profile, reason) {
-
+  if (profile.active) {
+    if (reason) {
+      profile.active = false;
+      profile.reason = reason;
+    } else {
+      return "confirm status manually";
     }
+  } else {
+    profile.active = true;
+    delete profile.reason;
+  }
+  
+  return profile;
+}
+    
 
     // 👉 CHALLENGE 2
     function mineSweeper(grid, x, y) {
-
+    if (x < 1 || x > 3 || y < 1 || y > 3) {
+        return "invalid coordinates";
+    } else if (grid[y - 1][x - 1] === "🟥") {
+        return "🟥 💀";
+    } else {
+        return "🟦 🥳";
     }
+}
 
-    // 👉 CHALLENGE 3
+  
+    
+    
+      // 👉 CHALLENGE 3
     function booleanize(obj) {
-
+      for (let key in obj) {
+        if (key.length > 9) {
+            return "shorten all prop names to 9 chars or less";
+        }
+        if (obj[key] === 0) {
+            obj[key] = false;
+        } else if (obj[key] === 1) {
+            obj[key] = true;
+        } else if (obj[key] === null) {
+            delete obj[key];
+        }
+    }
+    return obj;
     }
 
     // 👉 CHALLENGE 4
     function scrub(text, forbidden) {
+      if (!text || forbidden.length === 0) {
+        return text;
+    }
 
+    const words = text.split(' ');
+
+    const scrubbedText = words.map(word => {
+        if (forbidden.includes(word)) {
+            return 'x'.repeat(word.length);
+        } else {
+            return word.replace(/[^\w\s]/gi, ''); // Remove punctuation
+        }
+    });
+
+    return scrubbedText.join(' ');
     }
 
     // 👉 CHALLENGE 5 (bonus, NOT graded)
     function normalizePhoneNumber(num) {
-
+      return num.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
     }
 
     // 👉 CHALLENGE 6 (bonus, NOT graded)
     function diceRolls() {
+      let throws = 0;
+    let counter = 0;
 
+    while (true) {
+        throws++;
+        if (Math.floor(Math.random() * 6) + 1 === 6) {
+            counter++;
+            if (counter === 3) {
+                return throws;
+            }
+        } else {
+            counter = 0;
+        }
+    }
     }
 
     // 🧪 DO NOT make any changes below this line ===================
